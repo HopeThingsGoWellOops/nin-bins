@@ -1,0 +1,6 @@
+[submodule "frogcert.bin"]
+	path = frogcert.bin
+	url = https://github.com/HopeThingsGoWellOops/frogcert.bin
+[submodule "boot9.bin"]
+	path = boot9.bin
+	url = https://github.com/HopeThingsGoWellOops/boot9.bin

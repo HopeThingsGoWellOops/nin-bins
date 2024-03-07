@@ -3,26 +3,25 @@
 <head>
 <title>Hex viewer</title>
 <link rel="stylesheet" type="text/less" href="style.less">
-<script src="less.js"></script>
-<script>
-// fallback if a local less.js file cannot be loaded.
-window.less || document.write('<script src="' +
-'https://cdnjs.cloudflare.com/ajax/libs/less.js/1.6.1/less.min.js"><\/script>');
-window.less || alert('hex-viewer: compile style.less manually or find a less.js');
-</script>
+<script src="https://cdn.jsdelivr.net/npm/less"></script>
 </head>
 <body>
 
 <div id="page">
-<div id="hex-viewer"></div>
 
 <p class="controls">
-<label for="file-picker">Open binary</label>
-<input type="file" id="file-picker">
+<label for="frogcert-bin">Open frogcert.bin</label>
+<input type="button" id="frogcert-bin" value="Open frogcert.bin">
 
-<label for="file-picker2">Open annotations</label>
-<input type="file" id="file-picker2">
+<label for="boot9-bin">Open boot9.bin</label>
+<input type="button" id="boot9-bin" value="Open boot9.bin">
+
+<label for="file-picker">Open annotations</label>
+<input type="file" id="file-picker">
 </p>
+
+<div id="hex-viewer"></div>
+
 </div>
 
 <script src="polyfill.js"></script>
@@ -38,17 +37,6 @@ var testData = array_to_arraybuffer(function () {
         a[i] = i;
     return a;
 }());
-try {
-    loadArrayBuffer('test.bin', hexViewer.loadData.bind(hexViewer));
-} catch (ex) {
-    console.log('Failed to load test.bin: ', ex);
-    hexViewer.loadData(testData);
-}
-try {
-    loadString('test.txt', setAnnotations);
-} catch (ex) {
-    console.log('Failed to load annotations from test.txt: ', ex);
-}
 
 function setAnnotations(text) {
     try {
@@ -60,8 +48,18 @@ function setAnnotations(text) {
     hexViewer.setAnnotations(annots);
 }
 
-handleFilePicker('file-picker', hexViewer.loadData.bind(hexViewer));
-handleFilePicker('file-picker2', setAnnotations, 'Text');
+handleFileButton('frogcert-bin', 'frogcert.bin/frogcert.bin');
+handleFileButton('boot9-bin', 'boot9.bin/boot9.bin');
+handleFilePicker('file-picker', setAnnotations, 'Text');
+
+function handleFileButton(id, file, type) {
+    type = type || 'ArrayBuffer';
+
+    var fileInput = document.getElementById(id);
+    fileInput.addEventListener('click', function () {
+        loadArrayBuffer(file, hexViewer.loadData.bind(hexViewer));
+    });
+}
 
 function handleFilePicker(id, loadData, type) {
     type = type || 'ArrayBuffer';
@@ -118,7 +116,7 @@ function loadArrayBuffer(url, callback) {
     xhr.onload = function () {
         if (xhr.response) {
             var len = xhr.response.byteLength;
-            if (len > 1024 * 1024 &&
+            if (len > 5 * 1024 * 1024 &&
                 !confirm('Continue processing ' + len + ' bytes?')) {
                 console.log('Aborted processing of ' + url);
                 return;
