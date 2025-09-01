@@ -67,7 +67,7 @@ body {
     }
 
     // 1 2 3 4   5 6 7
-    @inter_group_spacing: ceil(@columns / @group_size) - 1ch;
+    @inter_group_spacing: ceil((@columns / @group_size)) - 1ch;
     .hex .line {
         /* for every column, account for line no, two hex digits, left+right
          * padding and group padding */
