@@ -2,6 +2,9 @@
 <html>
 <head>
 <title>Hex viewer</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Roboto+Mono:ital,wght@0,100..700;1,100..700&display=swap" rel="stylesheet">
 <!--link rel="stylesheet" type="text/less" href="style.less">
 <script src="https://cdn.jsdelivr.net/npm/less"></script-->
 <style>
@@ -69,7 +72,7 @@ body {
 .hex-viewer .hex .line {
   /* for every column, account for line no, two hex digits, left+right
          * padding and group padding */
-  width: 60ch;
+  width: 60.32ch;
   /* line number */
 }
 .hex-viewer .hex .line::before {
@@ -89,11 +92,11 @@ body {
 }
 .hex-viewer .hex,
 .hex-viewer .asc {
-  font-family: monospace;
+  font-family: "Roboto Mono", monospace;
   font-size: larger;
 }
 .hex-viewer .hex .line span {
-  padding: 0.2em 0.5ch;
+  padding: 0.2em 0.51ch;
   margin: 0;
   display: inline-block;
   text-transform: uppercase;
@@ -121,7 +124,7 @@ body {
   font-weight: bold;
 }
 .hex-viewer .bits {
-  font-family: monospace;
+  font-family: "Roboto Mono", monospace;
   font-size: larger;
   border: 1px solid #ccc;
   padding: 0.5em 1ch;
